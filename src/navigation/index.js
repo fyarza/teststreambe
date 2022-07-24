@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -7,8 +7,11 @@ import {
   SCREEN_LOGIN,
   SCREEN_HOME,
   SCREEN_CONTACTOS,
+  SCREEN_CONTACTO,
   SCREEN_MUESTRAS,
   SCREEN_VADEMECUM,
+  STACK_LOGIN,
+  STACK_DASHBOARD,
 } from '@/utils/constants/navigation';
 import {screenOptionsDashboard} from '@/utils/constants/screenOptionsDashboard';
 import {useSelector} from 'react-redux';
@@ -19,6 +22,7 @@ import tw from '@/utils/tailwind';
 
 import LoginScreen from '@/screens/Login';
 import ContactosScreen from '@/screens/Contactos';
+import ContactoScreen from '@/screens/Contacto';
 import MuestrasScreen from '@/screens/Muestras';
 import VademecumScreen from '@/screens/Vademecum';
 
@@ -45,11 +49,13 @@ const ContactosStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={SCREEN_CONTACTOS} component={ContactosScreen} />
+      <Stack.Screen name={SCREEN_CONTACTO} component={ContactoScreen} />
     </Stack.Navigator>
   );
 };
 
-const Dashboard = () => {
+const Dashboard = ({routeName}) => {
+  console.log(routeName);
   return (
     <Tab.Navigator
       initialRouteName={SCREEN_HOME}
@@ -57,12 +63,8 @@ const Dashboard = () => {
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         headerShown: false,
-        // tabBarIcon: ({focused, color}) => {
-        //   return screenOptionsDashboard(route, focused, color, 30);
-        // },
-        // tabBarActiveTintColor: 'white',
-        // tabBarInactiveTintColor: 'blue',
         tabBarStyle: {
+          display: routeName === SCREEN_CONTACTO ? 'none' : 'flex',
           position: 'absolute',
           bottom: 0,
           left: 0,
@@ -124,17 +126,29 @@ const Dashboard = () => {
 
 const Navigation = () => {
   const user = useSelector(state => state.user);
+  const [routeName, setRouteName] = useState();
 
   return (
-    <NavigationContainer ref={navigationRef}>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        setRouteName(navigationRef.getCurrentRoute().name);
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeName;
+        const currentRouteName = navigationRef.getCurrentRoute().name;
+        setRouteName(currentRouteName);
+      }}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
         {user === false ? (
-          <Stack.Screen name={'AppRouter'} component={LoginEmail} />
+          <Stack.Screen name={STACK_LOGIN} component={LoginEmail} />
         ) : (
-          <Stack.Screen name={'Dashboard'} component={Dashboard} />
+          <Stack.Screen name={STACK_DASHBOARD}>
+            {props => <Dashboard {...props} routeName={routeName} />}
+          </Stack.Screen>
         )}
       </Stack.Navigator>
     </NavigationContainer>
