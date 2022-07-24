@@ -15,8 +15,11 @@ const LoginController = ({navigation, _singInAction, user}) => {
     password: Yup.string().required('Contraseña Requerida'),
   });
 
-  const onSubmit = async (values, actions) => {
+  const onSubmit = (values, actions) => {
     console.log(values);
+    _singInAction(values);
+    actions.setSubmitting(false);
+    actions.resetForm();
   };
 
   return (

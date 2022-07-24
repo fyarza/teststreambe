@@ -1,10 +1,10 @@
 import React from 'react';
 import FA from 'react-native-vector-icons/Feather';
-
+import {SCREEN_HOME} from './navigation';
 const screenOptionsDashboard = (route, focused, color, size) => {
   let iconName;
   switch (route.name) {
-    case 'Pedidos':
+    case SCREEN_HOME:
       iconName = focused ? 'file-text' : 'file';
       break;
     case 'Productos':

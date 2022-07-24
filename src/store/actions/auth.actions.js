@@ -5,9 +5,9 @@ export function singInAction(body) {
   return function (dispatch) {
     dispatch(
       setStore(SET_USER, {
-        name: 'federico',
+        ...body,
         id: 1,
-        email: 'federicoyarza295@gmail.com',
+        token: 'abcdeefghijkl',
       }),
     );
   };

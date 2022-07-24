@@ -8,3 +8,10 @@ export const REMOVE_USER = 'REMOVE_USER';
 
 /**REMOVER TODO */
 export const REMOVE_ALL = 'REMOVE_ALL';
+
+/**
+ *
+ * CONTACTS
+ */
+export const SET_CONTACTS = 'SET_CONTACTS';
+export const REMOVE_CONTACT = 'REMOVE_CONTACT';
