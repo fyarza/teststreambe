@@ -25,7 +25,7 @@ export function listContactsAction() {
 
 export function removeContactAction(body) {
   return async function (dispatch) {
-    dispatch(setStore(REMOVE_CONTACT), body);
+    dispatch(setStore(REMOVE_CONTACT, body));
     return Promise.resolve('Delete Succesfully');
   };
 }

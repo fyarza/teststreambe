@@ -4,13 +4,23 @@ import {connect} from 'react-redux';
 import LayoutContacto from './Layout';
 
 const ContactosController = ({navigation, route, _removeContactAction}) => {
-  console.log(route);
   const {contacto} = route.params;
 
   const goBack = () => {
     navigation.goBack();
   };
-  return <LayoutContacto contacto={contacto} goBack={goBack} />;
+
+  const removeContact = contact => {
+    _removeContactAction(contact);
+    goBack();
+  };
+  return (
+    <LayoutContacto
+      contacto={contacto}
+      goBack={goBack}
+      _removeContactAction={removeContact}
+    />
+  );
 };
 
 const mapStateToProps = () => ({});

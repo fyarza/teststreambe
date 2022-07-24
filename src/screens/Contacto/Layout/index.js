@@ -6,7 +6,7 @@ import FO from 'react-native-vector-icons/Fontisto';
 import FAW from 'react-native-vector-icons/FontAwesome';
 import tw from '@/utils/tailwind';
 
-const LayoutContacto = ({contacto, goBack}) => {
+const LayoutContacto = ({contacto, goBack, _removeContactAction}) => {
   const array = contacto.birthDate !== '' ? contacto.birthDate.split('-') : [];
   const fecha = array.length > 0 ? `${array[2]}/${array[1]}/${array[0]}` : '';
   const genero = {
@@ -32,7 +32,7 @@ const LayoutContacto = ({contacto, goBack}) => {
           </View>
         </View>
         <View
-          style={tw`absolute w-40 h-40 overflow-hidden bg-white border-4 border-white rounded-full left-30 top-10 `}>
+          style={tw`absolute w-40 h-40 overflow-hidden bg-white border-4 border-white rounded-full shadow-lg left-30 top-10`}>
           <FastImage
             style={tw`w-full h-full`}
             source={{
@@ -129,12 +129,18 @@ const LayoutContacto = ({contacto, goBack}) => {
         </View>
       </View>
       <View>
-        <View
-          style={tw`bg-[#f46366] items-center justify-center rounded-full mx-4 py-3 shadow-lg`}>
-          <Text style={tw`text-base font-bold text-white`}>
-            Eliminar de mi lista
-          </Text>
-        </View>
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('#fff', false)}
+          onPress={() =>
+            requestAnimationFrame(() => _removeContactAction(contacto))
+          }>
+          <View
+            style={tw`bg-[#f46366] items-center justify-center rounded-full mx-4 py-3 shadow-lg`}>
+            <Text style={tw`text-base font-bold text-white`}>
+              Eliminar de mi lista
+            </Text>
+          </View>
+        </TouchableNativeFeedback>
       </View>
     </View>
   );

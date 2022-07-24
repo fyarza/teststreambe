@@ -55,7 +55,6 @@ const ContactosStack = () => {
 };
 
 const Dashboard = ({routeName}) => {
-  console.log(routeName);
   return (
     <Tab.Navigator
       initialRouteName={SCREEN_HOME}

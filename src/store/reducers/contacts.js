@@ -17,10 +17,15 @@ function contacts(state = [], action) {
     case SET_CONTACTS:
       return action.payload;
     case REMOVE_CONTACT:
-      const index = state.findIndex(
-        item => item.contactId === action.payload.contactId,
+      const updateState = state.filter(
+        item => item.contactId !== action.payload.contactId,
       );
-      const updateState = state.splice(index, 1);
+      // const i = state.indexOf(contact);
+
+      // if (i !== -1) {
+      //   const updateState = state.splice(i, 1);
+      //   return updateState;
+      // }
       return updateState;
     case REMOVE_ALL:
       return [];

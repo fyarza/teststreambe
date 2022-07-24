@@ -19,13 +19,13 @@ const ContactosController = ({navigation, _listContactsAction, contacts}) => {
   };
   return (
     <LayoutContactos
-      contacts={contacts}
       navigateScreenContacto={navigateScreenContacto}
+      contacts={contacts}
     />
   );
 };
 
-const mapStateToProps = ({contacts}, store) => ({
+const mapStateToProps = ({contacts}) => ({
   contacts,
 });
 

@@ -5,9 +5,11 @@ import FA from 'react-native-vector-icons/Feather';
 import FO from 'react-native-vector-icons/FontAwesome5';
 import FastImage from 'react-native-fast-image';
 
-const LayoutContactos = ({contacts, navigateScreenContacto}) => {
+const LayoutContactos = ({navigateScreenContacto, contacts}) => {
   const renderItem = ({item}) => {
     const {photo, name, surnames} = item;
+
+    console.log('TEL', contacts.length);
 
     return (
       <TouchableNativeFeedback
